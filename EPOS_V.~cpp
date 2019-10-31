@@ -101,7 +101,7 @@ int MotorEposComInit(int KeyCanCom, int COMNumber,int Baudrate,int MotorNum)
     AnsiString strInterfaceName;
     AnsiString strPortName;
     AnsiString ProtocolStackName="CANopen";
-    HANDLE m_KeyHandle1;
+
     if (KeyCanCom==2)
     {
         strInterfaceName="USB";
@@ -220,7 +220,7 @@ int MotorEposNumInit(int MotorNum)
     AnsiString strProtocolStackName;
     AnsiString strInterfaceName;
     AnsiString strPortName;
-    HANDLE m_KeyHandle1;
+
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
     int COMNumber=DvigMex[n].COMport;
@@ -342,32 +342,10 @@ int MotorEposNumDisable(int MotorNum)
     return 0;
 }
 //----------------------------------------------------------------------------
-//Проверка на наличие контроллера
-//----------------------------------------------------------------------------
-int MotorEposNalDvig(int MotorNum)
-{
-    int n=0;
-    if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
-    WORD pSoftwareVersion;
-    WORD pApplicationNumber;
-    WORD pApplicationVersion;
-    WORD pHardwareVersion;
-    WORD NumID=(WORD)DvigMex[n].NumContr;
-
-    if(!VCS_GetVersion(DvigMex[n].Handle, NumID, &pHardwareVersion,&pSoftwareVersion, &pApplicationNumber, &pApplicationVersion, &Result))
-        return (-1);
-    return 0;
-}
-//----------------------------------------------------------------------------
 //Включение привода
 //----------------------------------------------------------------------------
 int MotorEposNumEnable(int MotorNum)
 {
-    if(MotorEposNalDvig(MotorNum)!=0)
-        {
-            MotorEposDiagnController(TxtDgnContr03);
-            return (-1);
-        }
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
     WORD NumID=(WORD)DvigMex[n].NumContr;
@@ -458,6 +436,8 @@ int MotorEposNumBase(int MotorNum,__int8 m_uMode)
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
     WORD NumID=(WORD)DvigMex[n].NumContr;
     double TimeOtr = DvigMex[n].TimeOtr;
+    BOOL pHomingAttained=false;
+    BOOL pHomingError=false;
     if(!VCS_ActivateHomingMode(DvigMex[n].Handle, NumID,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
@@ -472,6 +452,21 @@ int MotorEposNumBase(int MotorNum,__int8 m_uMode)
         {
             MotorEposCheckResult(MotorNum,Result);
             return(-1);
+        }
+    if(!VCS_GetHomingState(DvigMex[n].Handle, NumID, &pHomingAttained,&pHomingError, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+    if(!pHomingAttained)
+        {
+            MotorEposDiagnController(TxtDgnContr06);
+            return (-1);
+        }
+    if(pHomingError)
+        {
+            MotorEposDiagnController(TxtDgnContr05);
+            return (-1);
         }
     return MotorEposCheckResult(MotorNum,Result);
 }

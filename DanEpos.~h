@@ -65,11 +65,12 @@ extern struct ParCommon DefParamEpos[];
 extern struct DvMexUp DvigMex[];
 extern int KolDvMexUp ;
 extern    DWORD Result;
+extern int Key;
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 extern AnsiString Dgn;
-
+extern HANDLE m_KeyHandle1;
 
 
 extern int MotorEposNumInit(int) ;
@@ -103,4 +104,3 @@ extern int MotorEposNumWaitEndMove(int );
 extern int MotorEposNumReadState(int , int *);
 extern int MotorEposNumReadSensor(int , int *);
 extern int Proba(HANDLE ,int);
-extern int MotorEposNalDvig(int );
