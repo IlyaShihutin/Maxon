@@ -1,7 +1,7 @@
 object FormFrmKom: TFormFrmKom
   Tag = 5
-  Left = -266
-  Top = 121
+  Left = 254
+  Top = 51
   Width = 1447
   Height = 1092
   Caption = '1060'

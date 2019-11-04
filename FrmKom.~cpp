@@ -17,6 +17,7 @@ int COMNumber=0;
 int KeyCanCom=2;
 int Baudrate=115200;
 __int8  m_uMode=35;
+int Key=1;
 //---------------------------------------------------------------------------
 __fastcall TFormFrmKom::TFormFrmKom(TComponent* Owner)
     : TForm(Owner)

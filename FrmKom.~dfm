@@ -3,7 +3,7 @@ object FormFrmKom: TFormFrmKom
   Left = -266
   Top = 121
   Width = 1447
-  Height = 1096
+  Height = 1092
   Caption = '1060'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

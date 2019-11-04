@@ -43,10 +43,11 @@ int MotorEposCheckStateController( int MotorNum)
 {
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     BOOL pIsEnabled=true;
     if (DvigMex[n].Handle!=0)
         {
-            if(!VCS_GetEnableState(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pIsEnabled, &Result))
+            if(!VCS_GetEnableState(DvigMex[n].Handle, NumID, &pIsEnabled, &Result))
                 {
                     MotorEposCheckResult(MotorNum,  Result);
                     return (-1);
@@ -318,18 +319,19 @@ int MotorEposNumDisable(int MotorNum)
 {
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     BOOL pIsEnabled=false;
     if (DvigMex[n].Handle!=0)
         {
 
-            if(!VCS_GetEnableState(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pIsEnabled, &Result))
+            if(!VCS_GetEnableState(DvigMex[n].Handle, NumID, &pIsEnabled, &Result))
                 {
                     MotorEposCheckResult(MotorNum,  Result);
                     return (-1);
                 }
             if (pIsEnabled==1)
                 {
-                    VCS_SetDisableState(DvigMex[n].Handle,(WORD)DvigMex[n].NumContr,&Result);
+                    VCS_SetDisableState(DvigMex[n].Handle,NumID,&Result);
                 }
         }
     else
@@ -350,8 +352,9 @@ int MotorEposNalDvig(int MotorNum)
     WORD pApplicationNumber;
     WORD pApplicationVersion;
     WORD pHardwareVersion;
+    WORD NumID=(WORD)DvigMex[n].NumContr;
 
-    if(!VCS_GetVersion(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pHardwareVersion,&pSoftwareVersion, &pApplicationNumber, &pApplicationVersion, &Result))
+    if(!VCS_GetVersion(DvigMex[n].Handle, NumID, &pHardwareVersion,&pSoftwareVersion, &pApplicationNumber, &pApplicationVersion, &Result))
         return (-1);
     return 0;
 }
@@ -367,17 +370,18 @@ int MotorEposNumEnable(int MotorNum)
         }
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     BOOL pIsEnabled =false;
     if (DvigMex[n].Handle!=0)
         {
-            if(!VCS_GetEnableState(DvigMex[n].Handle,(WORD)DvigMex[n].NumContr,&pIsEnabled, &Result))
+            if(!VCS_GetEnableState(DvigMex[n].Handle,NumID,&pIsEnabled, &Result))
                 {
     	                MotorEposCheckResult(MotorNum,  Result);
                         return (-1);
                 }
             if(!pIsEnabled)
             {
-                if(!VCS_SetEnableState(DvigMex[n].Handle,(WORD)DvigMex[n].NumContr,&Result))
+                if(!VCS_SetEnableState(DvigMex[n].Handle,NumID,&Result))
                     {
                         MotorEposCheckResult(MotorNum, Result);
                         return (-1);
@@ -395,10 +399,11 @@ int MotorEposNumReadTekCoord(int MotorNum, double *TekPos)
     if(MotorEposCheckStateController(MotorNum)!=0) return (-1);
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     long pPositionIs;
     double Par1;
 
-    if(!VCS_GetPositionIs(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pPositionIs, &Result))
+    if(!VCS_GetPositionIs(DvigMex[n].Handle, NumID, &pPositionIs, &Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -415,9 +420,10 @@ int MotorEposNumReadZdnCoord(int MotorNum, double *ZdnPos)
     if(MotorEposCheckStateController(MotorNum)!=0) return (-1);
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     long pTargetPosition ;
     double Par1;
-    if(!VCS_GetTargetPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pTargetPosition, &Result))
+    if(!VCS_GetTargetPosition(DvigMex[n].Handle, NumID, &pTargetPosition, &Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -434,7 +440,8 @@ int MotorEposNumClearFaults(int MotorNum)
     if(MotorEposCheckStateController(MotorNum)!=0) return (-1);
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
-    if(!VCS_ClearFault(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &Result))
+    WORD NumID=(WORD)DvigMex[n].NumContr;
+    if(!VCS_ClearFault(DvigMex[n].Handle, NumID, &Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -449,18 +456,19 @@ int MotorEposNumBase(int MotorNum,__int8 m_uMode)
     if(MotorEposCheckStateController(MotorNum)!=0) return (-1);
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     double TimeOtr = DvigMex[n].TimeOtr;
-    if(!VCS_ActivateHomingMode(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,&Result))
+    if(!VCS_ActivateHomingMode(DvigMex[n].Handle, NumID,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
         }
-    if(!VCS_FindHome(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, m_uMode, &Result))
+    if(!VCS_FindHome(DvigMex[n].Handle, NumID, m_uMode, &Result))
         {
             MotorEposCheckResult(MotorNum,Result);
             return(-1);
         }
-    if(!VCS_WaitForHomingAttained(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, TimeOtr,&Result))
+    if(!VCS_WaitForHomingAttained(DvigMex[n].Handle, NumID, TimeOtr,&Result))
         {
             MotorEposCheckResult(MotorNum,Result);
             return(-1);
@@ -475,10 +483,11 @@ int MotorEposNumStatBase(int MotorNum)
     if(MotorEposCheckStateController(MotorNum)!=0) return (-1);
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     BOOL pHomingAttained=false;
     BOOL pHomingError=false;
 
-    if(!VCS_GetHomingState(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pHomingAttained,&pHomingError, &Result))
+    if(!VCS_GetHomingState(DvigMex[n].Handle, NumID, &pHomingAttained,&pHomingError, &Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -495,6 +504,7 @@ int MotorEposNumReadParBase(int MotorNum, double *SpeedSwitch, double *SpeedInde
     if(MotorEposCheckStateController(MotorNum)!=0) return (-1);
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     long HomePosition;
     DWORD pHomingAcceleration;
     DWORD pSpeedSwitch;
@@ -503,7 +513,7 @@ int MotorEposNumReadParBase(int MotorNum, double *SpeedSwitch, double *SpeedInde
     double Par1;
     unsigned short CurrentThreshold=0;
 
-    if(!VCS_GetHomingParameter(DvigMex[n].Handle,(WORD)DvigMex[n].NumContr,&pHomingAcceleration,
+    if(!VCS_GetHomingParameter(DvigMex[n].Handle,NumID,&pHomingAcceleration,
     &pSpeedSwitch,&pSpeedIndex,&pHomeOffset,&CurrentThreshold,&HomePosition,&Result))
         {
             MotorEposCheckResult(MotorNum,Result); return(-1);
@@ -533,6 +543,7 @@ int MotorEposNumWriteParBase(int MotorNum, double SpeedSwitch, double SpeedIndex
     if(MotorEposCheckStateController(MotorNum)!=0) return (-1);
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     long HomePosition;
     DWORD pHomingAcceleration;
     DWORD pSpeedSwitch;
@@ -556,7 +567,7 @@ int MotorEposNumWriteParBase(int MotorNum, double SpeedSwitch, double SpeedIndex
     MotorEposRaschMoveCoordPar(MotorNum, HPosition, &Par2,  'S',  0);
     HomePosition=(long)Par2;
 
-    if(!VCS_SetHomingParameter(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, pHomingAcceleration,  pSpeedSwitch, pSpeedIndex,
+    if(!VCS_SetHomingParameter(DvigMex[n].Handle, NumID, pHomingAcceleration,  pSpeedSwitch, pSpeedIndex,
                                 pHomeOffset,  CurrentThreshold,  HomePosition, &Result))
         {
             MotorEposCheckResult(MotorNum,Result);
@@ -577,6 +588,7 @@ int MotorEposNumWriteParMove(int MotorNum, double Speed,double Uskor, double Tor
     if(MotorEposCheckStateController(MotorNum)!=0) return (-1);
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     DWORD ProfileAcceleration;
     DWORD ProfileDeceleration;
     DWORD ProfileVelocity;
@@ -591,7 +603,7 @@ int MotorEposNumWriteParMove(int MotorNum, double Speed,double Uskor, double Tor
     MotorEposRaschMoveCoordPar(MotorNum, Speed, &Par2,  'V',  0);
     ProfileVelocity=(DWORD)Par2;
 
-    if(!VCS_SetPositionProfile(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,ProfileVelocity,ProfileAcceleration,ProfileDeceleration, &Result))
+    if(!VCS_SetPositionProfile(DvigMex[n].Handle, NumID,ProfileVelocity,ProfileAcceleration,ProfileDeceleration, &Result))
         {
             MotorEposCheckResult(MotorNum,Result); return(-1);
         }
@@ -608,12 +620,13 @@ int MotorEposNumReadParMove(int MotorNum, double *Speed, double *Uskor, double *
     if(MotorEposCheckStateController(MotorNum)!=0) return (-1);
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     DWORD ProfileAcceleration;
     DWORD ProfileDeceleration;
     DWORD ProfileVelocity;
     double Par1;
 
-    if(!VCS_GetPositionProfile(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,&ProfileVelocity,&ProfileAcceleration,&ProfileDeceleration, &Result))
+    if(!VCS_GetPositionProfile(DvigMex[n].Handle, NumID,&ProfileVelocity,&ProfileAcceleration,&ProfileDeceleration, &Result))
         {
             MotorEposCheckResult(MotorNum,Result); return(-1);
         }
@@ -634,9 +647,14 @@ int MotorEposNumReadParMove(int MotorNum, double *Speed, double *Uskor, double *
 int MotorEposNumRelMove(int MotorNum, double DistMove, int Key)
 {
     if(MotorEposCheckStateController(MotorNum)!=0) return (-1);
-
+    if (MotorEposNumStatBase( MotorNum)!=0)
+    {
+        MotorEposDiagnController(TxtDgnContr15);
+        return (-1);
+    }
     int n=0;double ZdnPos;double NewPos;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     bool m_oImmediately=TRUE;
     long TargetPosition;
     double Par2;
@@ -644,7 +662,7 @@ int MotorEposNumRelMove(int MotorNum, double DistMove, int Key)
 
     if (MotorEposNumWaitEndMove(MotorNum)==(-1)) return (-1);
 
-    if(!VCS_ActivateProfilePositionMode(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,&Result))
+    if(!VCS_ActivateProfilePositionMode(DvigMex[n].Handle, NumID,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -663,7 +681,7 @@ int MotorEposNumRelMove(int MotorNum, double DistMove, int Key)
     MotorEposRaschMoveCoordPar(MotorNum, NewPos, &Par2,  'O',  0);
     TargetPosition=(long)Par2;
 
-    if(!VCS_MoveToPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,TargetPosition,TRUE,m_oImmediately,&Result))
+    if(!VCS_MoveToPosition(DvigMex[n].Handle, NumID,TargetPosition,TRUE,m_oImmediately,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -679,15 +697,21 @@ int MotorEposNumRelMove(int MotorNum, double DistMove, int Key)
 int MotorEposNumAbsMove(int MotorNum, double DistMove, int Key)
 {
     if(MotorEposCheckStateController(MotorNum)!=0) return (-1);
+    if (MotorEposNumStatBase( MotorNum)!=0)
+    {
+        MotorEposDiagnController(TxtDgnContr15);
+        return (-1);
+    }
     int n=0; int KeyErr=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     bool m_oImmediately=TRUE;
 
     if (Key==1) m_oImmediately=FALSE;
 
     if (MotorEposNumWaitEndMove(MotorNum)==(-1)) return (-1);
 
-    if(!VCS_ActivateProfilePositionMode(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,&Result))
+    if(!VCS_ActivateProfilePositionMode(DvigMex[n].Handle, NumID,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -700,7 +724,7 @@ int MotorEposNumAbsMove(int MotorNum, double DistMove, int Key)
     if(KeyErr!=0) return (-1);
 
 
-    if(!VCS_MoveToPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,DistMove,TRUE,m_oImmediately,&Result))
+    if(!VCS_MoveToPosition(DvigMex[n].Handle, NumID,DistMove,TRUE,m_oImmediately,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -718,7 +742,8 @@ int MotorEposNumStop(int MotorNum)
     if(MotorEposCheckStateController(MotorNum)!=0) return (-1);
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
-    if(!VCS_HaltPositionMovement(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,&Result))
+    WORD NumID=(WORD)DvigMex[n].NumContr;
+    if(!VCS_HaltPositionMovement(DvigMex[n].Handle, NumID,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -745,11 +770,12 @@ int MotorEposNumSkanMove(int MotorNum, double DistMove)
     int n=0;
     double ZdnPos;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     bool m_oImmediately=FALSE;
     long TargetPosition;
     double Par2;
     if (MotorEposNumWaitEndMove(MotorNum)==(-1)) return (-1);
-    if(!VCS_ActivateProfilePositionMode(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,&Result))
+    if(!VCS_ActivateProfilePositionMode(DvigMex[n].Handle, NumID,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -769,7 +795,7 @@ int MotorEposNumSkanMove(int MotorNum, double DistMove)
     MotorEposRaschMoveCoordPar(MotorNum, NewPos, &Par2,  'O',  0);
     TargetPosition=(long)Par2;
 
-    if(!VCS_MoveToPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,TargetPosition,TRUE,m_oImmediately,&Result))
+    if(!VCS_MoveToPosition(DvigMex[n].Handle, NumID,TargetPosition,TRUE,m_oImmediately,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -779,7 +805,7 @@ int MotorEposNumSkanMove(int MotorNum, double DistMove)
     MotorEposRaschMoveCoordPar(MotorNum, ZdnPos, &Par2,  'O',  0);
     TargetPosition=(long)Par2;
 
-    if(!VCS_MoveToPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,TargetPosition,TRUE,m_oImmediately,&Result))
+    if(!VCS_MoveToPosition(DvigMex[n].Handle, NumID,TargetPosition,TRUE,m_oImmediately,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -795,12 +821,13 @@ int MotorEposNumWaitEndMove(int MotorNum)
     if(MotorEposCheckStateController(MotorNum)!=0) return (-1);
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     double TimeOtr = DvigMex[n].TimeOtr; // в сек
     BOOL pTargetReached=0;
     int KolCikl = (int)(TimeOtr*1000./5.);    // кол-во циклов по 5 млсек
     for (int i=0; i<KolCikl; i++)
         {
-            if(!VCS_GetMovementState(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pTargetReached,&Result))
+            if(!VCS_GetMovementState(DvigMex[n].Handle, NumID, &pTargetReached,&Result))
                 {
                     MotorEposCheckResult(MotorNum, Result);
                     return (-1);
@@ -822,16 +849,17 @@ int MotorEposNumReadState(int MotorNum, int *State)
 {
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     __int8 pMode=1;
     int statusword_;
     DWORD pNbOfBytesRead;
 
-    if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x6041, 0x00, &statusword_, 2,&pNbOfBytesRead, &Result))
+    if(!VCS_GetObject(DvigMex[n].Handle, NumID, 0x6041, 0x00, &statusword_, 2,&pNbOfBytesRead, &Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
         }
-    VCS_GetOperationMode(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,  &pMode, &Result);
+    VCS_GetOperationMode(DvigMex[n].Handle, NumID,  &pMode, &Result);
 
         *State=statusword_;
         if (pMode==6)  *State | BIT16 ;
@@ -848,9 +876,10 @@ int MotorEposNumReadSensor(int MotorNum, int *Sens)
 {
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    WORD NumID=(WORD)DvigMex[n].NumContr;
     WORD pInputs=0;
 
-    if(!VCS_GetAllDigitalInputs(DvigMex[n].Handle,(WORD)DvigMex[n].NumContr,&pInputs,&Result))
+    if(!VCS_GetAllDigitalInputs(DvigMex[n].Handle,NumID,&pInputs,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
