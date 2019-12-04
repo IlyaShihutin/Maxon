@@ -412,35 +412,16 @@ int MotorEposNumReadZdnCoord(int MotorNum, double *ZdnPos)
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
     if(MotorEposCheckStateController(n)!=0) return (-1);
     long pTargetPosition ;
-    if(!VCS_GetPositionMust(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pTargetPosition, &Result))
+
+    if(!VCS_GetTargetPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pTargetPosition, &Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
         }
-    /*if(!VCS_GetTargetPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pTargetPosition, &Result))
-        {
-            MotorEposCheckResult(MotorNum, Result);
-            return (-1);
-        } */
     MotorEposRaschMoveCoordPar(MotorNum, (double)pTargetPosition, ZdnPos,  'K',  1);
     return (MotorEposCheckResult(MotorNum,Result));
 }
-//----------------------------------------------------------------------------
-//Чтеbdfhdgfhjgfh
-//----------------------------------------------------------------------------
-int Motor(int MotorNum, long ZdnPos)
-{
-    int n=0;
-    if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
-    if(MotorEposCheckStateController(n)!=0) return (-1);
-     VCS_ActivatePositionMode(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,&Result);
-    if(!VCS_SetPositionMust(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, ZdnPos, &Result))
-        {
-            MotorEposCheckResult(MotorNum, Result);
-            return (-1);
-        }
-    return (MotorEposCheckResult(MotorNum,Result));
-}
+
 //----------------------------------------------------------------------------
 // Сброс ошибок привода (номер привода)
 //---------------------------------------------------------------------------
@@ -693,7 +674,6 @@ int MotorEposNumRelMove(int MotorNum, double DistMove, int Key)
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
         }
-    if(Motor(MotorNum,  TargetPosition)==(-1)) return (-1);
     if (MotorEposNumWaitEndMove(MotorNum)==(-1)) return (-1);
 
     return MotorEposCheckResult(MotorNum, Result);
@@ -755,8 +735,6 @@ int MotorEposNumStop(int MotorNum)
             return (-1);
         }
         double TekPos;
-    MotorEposNumReadTekCoord(MotorNum,&TekPos);
-    Motor(MotorNum,TekPos);
     return MotorEposCheckResult(MotorNum, Result);
 }
 //----------------------------------------------------------------------------
