@@ -498,7 +498,7 @@ object FormFrmKom: TFormFrmKom
       Height = 22
       Increment = 1
       ValueType = typeDouble
-      MaxValue = 852000
+      MaxValue = 178571
       Value = 1
       Alignment = taLeftJustify
       ButtonKind = ttNone
@@ -506,7 +506,7 @@ object FormFrmKom: TFormFrmKom
       Enabled = True
       Text = '1'
       MinValueText = '0.00'
-      MaxValueText = '852000.00'
+      MaxValueText = '178571.00'
       AutoSize = False
       ParentFont = False
       Font.Charset = DEFAULT_CHARSET
@@ -779,7 +779,7 @@ object FormFrmKom: TFormFrmKom
       Height = 22
       Increment = 1
       ValueType = typeDouble
-      MaxValue = 852000
+      MaxValue = 178571
       Value = 1
       Alignment = taLeftJustify
       ButtonKind = ttNone
@@ -787,7 +787,7 @@ object FormFrmKom: TFormFrmKom
       Enabled = True
       Text = '1'
       MinValueText = '0.00'
-      MaxValueText = '852000.00'
+      MaxValueText = '178571.00'
       AutoSize = False
       ParentFont = False
       Font.Charset = DEFAULT_CHARSET
@@ -804,7 +804,7 @@ object FormFrmKom: TFormFrmKom
       Height = 22
       Increment = 1
       ValueType = typeDouble
-      MaxValue = 852000
+      MaxValue = 178571
       Value = 1
       Alignment = taLeftJustify
       ButtonKind = ttNone
@@ -812,7 +812,7 @@ object FormFrmKom: TFormFrmKom
       Enabled = True
       Text = '1'
       MinValueText = '0.00'
-      MaxValueText = '852000.00'
+      MaxValueText = '178571.00'
       AutoSize = False
       ParentFont = False
       Font.Charset = DEFAULT_CHARSET
