@@ -369,3 +369,12 @@ void __fastcall TFormFrmKom::Button22Click(TObject *Sender) //чтение датчиков
 
 
 
+void __fastcall TFormFrmKom::Button23Click(TObject *Sender)
+{
+    MotorNum =MotorNumEdit->Value;
+    double Pos;
+    if(MotorEposNumReadPos(MotorNum, &Pos)==0)
+        TiSpinEdit4->Value=Pos;
+}
+//---------------------------------------------------------------------------
+

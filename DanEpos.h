@@ -105,4 +105,4 @@ extern int MotorEposNumReadSensor(int , int *);
 extern int Proba(HANDLE ,int);
 extern int MotorEposNalDvig(int );
 
-extern int Motor(int , long );
+extern int MotorEposNumReadPos(int, double *);

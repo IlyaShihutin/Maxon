@@ -7,7 +7,23 @@
 #include "Definitions.h"
 #include "TiSpin.h"
 
+int MotorEposNumReadPos(int MotorNum,double *Pos)
+{
+    int n=0;
+    if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
+    if(MotorEposCheckStateController(n)!=0) return (-1);
+    long Position ;
 
+    if(!VCS_GetTargetPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &Position, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+    MotorEposRaschMoveCoordPar(MotorNum, (double)Position, Pos,  'K',  1);
+    return 0;
+
+}
 /*
 int ReadDanPodkl(void)
 {

@@ -90,6 +90,9 @@ __published:	// IDE-managed Components
     TGroupBox *GroupBox4;
     TRadioButton *RadioButton5;
     TRadioButton *RadioButton6;
+    TLabel *Label13;
+    TButton *Button23;
+    TTiSpinEdit *TiSpinEdit4;
     void __fastcall Button2Click(TObject *Sender);
     void __fastcall Button4Click(TObject *Sender);
     void __fastcall Button5Click(TObject *Sender);
@@ -118,6 +121,7 @@ __published:	// IDE-managed Components
     void __fastcall Button20Click(TObject *Sender);
     void __fastcall Button21Click(TObject *Sender);
     void __fastcall Button22Click(TObject *Sender);
+    void __fastcall Button23Click(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
     __fastcall TFormFrmKom(TComponent* Owner);

@@ -1,9 +1,9 @@
 object FormFrmKom: TFormFrmKom
   Tag = 5
-  Left = 379
-  Top = 19
+  Left = 221
+  Top = 116
   Width = 1447
-  Height = 1092
+  Height = 1039
   Caption = '1060'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -58,7 +58,7 @@ object FormFrmKom: TFormFrmKom
   end
   object Button2: TButton
     Left = 560
-    Top = 712
+    Top = 760
     Width = 75
     Height = 25
     Caption = #1047#1072#1082#1088#1099#1090#1100
@@ -402,7 +402,7 @@ object FormFrmKom: TFormFrmKom
   end
   object GroupParBaz: TGroupBox
     Left = 320
-    Top = 288
+    Top = 336
     Width = 425
     Height = 209
     Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1073#1072#1079#1080#1088#1086#1074#1072#1085#1080#1103
@@ -708,7 +708,7 @@ object FormFrmKom: TFormFrmKom
   end
   object GroupParDv: TGroupBox
     Left = 320
-    Top = 500
+    Top = 548
     Width = 361
     Height = 197
     Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1076#1074#1080#1078#1077#1085#1080#1103
@@ -920,9 +920,9 @@ object FormFrmKom: TFormFrmKom
   end
   object GroupPer: TGroupBox
     Left = 320
-    Top = 144
-    Width = 370
-    Height = 81
+    Top = 112
+    Width = 385
+    Height = 105
     Caption = #1055#1077#1088#1077#1084#1077#1097#1077#1085#1080#1077' '
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
@@ -947,10 +947,23 @@ object FormFrmKom: TFormFrmKom
     object LabelSch1: TLabel
       Left = 12
       Top = 47
-      Width = 192
+      Width = 197
       Height = 17
       Caption = #1058#1077#1082#1091#1097#1072#1103' '#1082#1086#1086#1088#1076#1080#1085#1072#1090#1072'   ('#1075#1088#1072#1076')'
       Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label13: TLabel
+      Left = 12
+      Top = 72
+      Width = 201
+      Height = 17
+      Caption = #1058#1088#1077#1073#1091#1077#1084#1072#1103' '#1082#1086#1086#1088#1076#1080#1085#1072#1090#1072' ('#1075#1088#1072#1076')'
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
       Font.Name = 'Arial'
@@ -964,15 +977,14 @@ object FormFrmKom: TFormFrmKom
       Height = 24
       Increment = 1
       ValueType = typeDouble
-      Value = 20000
-      Decimal = 3
+      Value = 360
       Alignment = taLeftJustify
       ButtonKind = ttNone
       ArrowKeys = False
       Enabled = True
-      Text = '20000.00'
-      MinValueText = '0.000'
-      MaxValueText = '0.000'
+      Text = '360.00'
+      MinValueText = '0.00'
+      MaxValueText = '0.00'
       AutoSize = False
       ParentFont = False
       Font.Charset = DEFAULT_CHARSET
@@ -989,12 +1001,11 @@ object FormFrmKom: TFormFrmKom
       Height = 24
       Increment = 1
       ValueType = typeDouble
-      Value = 1
       Alignment = taLeftJustify
       ButtonKind = ttNone
       ArrowKeys = False
       Enabled = True
-      Text = '1.00'
+      Text = '0.00'
       MinValueText = '0.00'
       MaxValueText = '0.00'
       AutoSize = False
@@ -1005,6 +1016,28 @@ object FormFrmKom: TFormFrmKom
       Font.Name = 'Arial'
       Font.Style = []
       TabOrder = 1
+    end
+    object TiSpinEdit4: TTiSpinEdit
+      Left = 253
+      Top = 72
+      Width = 100
+      Height = 24
+      Increment = 1
+      Alignment = taLeftJustify
+      ButtonKind = ttNone
+      ArrowKeys = False
+      Enabled = True
+      Text = '0'
+      MinValueText = '0'
+      MaxValueText = '0'
+      AutoSize = False
+      ParentFont = False
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      TabOrder = 2
     end
   end
   object Button15: TButton
@@ -1250,7 +1283,7 @@ object FormFrmKom: TFormFrmKom
     Top = 384
     Width = 265
     Height = 265
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -15
     Font.Name = 'MS Sans Serif'
@@ -1307,5 +1340,20 @@ object FormFrmKom: TFormFrmKom
       Caption = #1055#1086#1074#1086#1088#1086#1090#1085#1099#1081
       TabOrder = 1
     end
+  end
+  object Button23: TButton
+    Left = 320
+    Top = 288
+    Width = 369
+    Height = 25
+    Caption = #1058#1088#1077#1073#1091#1077#1084#1072#1103' '#1082#1086#1086#1088#1076#1080#1085#1072#1090#1072
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 33
+    OnClick = Button23Click
   end
 end

@@ -394,8 +394,9 @@ int MotorEposNumReadTekCoord(int MotorNum, double *TekPos)
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
     if(MotorEposCheckStateController(n)!=0) return (-1);
     long pPositionIs;
+    DWORD pNbOfBytesRead;
 
-    if(!VCS_GetPositionIs(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pPositionIs, &Result))
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x6062, 0x00, &pPositionIs, 4,&pNbOfBytesRead, &Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -411,17 +412,17 @@ int MotorEposNumReadZdnCoord(int MotorNum, double *ZdnPos)
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
     if(MotorEposCheckStateController(n)!=0) return (-1);
-    long pTargetPosition ;
+    long pPositionIs ;
 
-    if(!VCS_GetTargetPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pTargetPosition, &Result))
+    if(!VCS_GetPositionIs(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pPositionIs, &Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
         }
-    MotorEposRaschMoveCoordPar(MotorNum, (double)pTargetPosition, ZdnPos,  'K',  1);
+
+    MotorEposRaschMoveCoordPar(MotorNum, (double)pPositionIs, ZdnPos,  'K',  1);
     return (MotorEposCheckResult(MotorNum,Result));
 }
-
 //----------------------------------------------------------------------------
 // Сброс ошибок привода (номер привода)
 //---------------------------------------------------------------------------
@@ -645,6 +646,7 @@ int MotorEposNumRelMove(int MotorNum, double DistMove, int Key)
     bool m_oImmediately=TRUE;
     long TargetPosition;
     double Par2;
+    double ZdnPos;
     if (Key==1) m_oImmediately=FALSE;
 
     if (MotorEposNumWaitEndMove(MotorNum)==(-1)) return (-1);
@@ -668,7 +670,6 @@ int MotorEposNumRelMove(int MotorNum, double DistMove, int Key)
     MotorEposRaschMoveCoordPar(MotorNum, NewPos, &Par2,  'O',  0);
     if (Par2>=0)TargetPosition=(long)(Par2+0.5);
     else TargetPosition=(long)(Par2-0.5);
-
     if(!VCS_MoveToPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,TargetPosition,TRUE,m_oImmediately,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
@@ -734,7 +735,6 @@ int MotorEposNumStop(int MotorNum)
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
         }
-        double TekPos;
     return MotorEposCheckResult(MotorNum, Result);
 }
 //----------------------------------------------------------------------------
