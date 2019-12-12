@@ -24,12 +24,12 @@ __fastcall TFormFrmKom::TFormFrmKom(TComponent* Owner)
 {
 }
 //---------------------------------------------------------------------------
-void __fastcall TFormFrmKom::Button2Click(TObject *Sender)
+void __fastcall TFormFrmKom::Button2678Click(TObject *Sender)
 {
     Close();
 }
 //---------------------------------------------------------------------------
-void __fastcall TFormFrmKom::Button5Click(TObject *Sender)//включение двигателя
+void __fastcall TFormFrmKom::Button514Click(TObject *Sender)//включение двигателя
 {
     MotorNum =MotorNumEdit->Value;
     int n=0;
@@ -44,7 +44,7 @@ void __fastcall TFormFrmKom::Button5Click(TObject *Sender)//включение двигателя
         CheckBox3->Checked=false ;
 }
 //---------------------------------------------------------------------------
-void __fastcall TFormFrmKom::Button4Click(TObject *Sender) //инициализация по двигателю
+void __fastcall TFormFrmKom::Button4213Click(TObject *Sender) //инициализация по двигателю
 {
     MotorNum =MotorNumEdit->Value;
     int n=0;
@@ -61,14 +61,14 @@ void __fastcall TFormFrmKom::Button4Click(TObject *Sender) //инициализация по дв
     else ShowMessage("Контроллер не записан в структуру");
 }
 //---------------------------------------------------------------------------
-void __fastcall TFormFrmKom::GroupBox2Click(TObject *Sender)
+void __fastcall TFormFrmKom::gfdsgClick(TObject *Sender)
 {
     if(RadioButton1->Checked)KeyCanCom=0;
     else if (RadioButton2->Checked) KeyCanCom=2;
    
 }
 //---------------------------------------------------------------------------
-void __fastcall TFormFrmKom::Button3Click(TObject *Sender) //инициализация по порту
+void __fastcall TFormFrmKom::Button323Click(TObject *Sender) //инициализация по порту
 {
     COMNumber=NodeId->Value;
     MotorNum =MotorNumEdit->Value;
@@ -79,7 +79,7 @@ void __fastcall TFormFrmKom::Button3Click(TObject *Sender) //инициализация по по
     else    CheckBox1->Checked=false ;
 }
 //---------------------------------------------------------------------------
-void __fastcall TFormFrmKom::Button6Click(TObject *Sender)//выключение двигателя
+void __fastcall TFormFrmKom::Button6213Click(TObject *Sender)//выключение двигателя
 {
     MotorNum =MotorNumEdit->Value;
 
@@ -90,7 +90,7 @@ void __fastcall TFormFrmKom::Button6Click(TObject *Sender)//выключение двигателя
         }
 }
 //---------------------------------------------------------------------------
-void __fastcall TFormFrmKom::Button7Click(TObject *Sender)//чтение текущей позиции
+void __fastcall TFormFrmKom::Button7123Click(TObject *Sender)//чтение текущей позиции
 {
     MotorNum =MotorNumEdit->Value;
     double TekPos;
@@ -119,7 +119,7 @@ void __fastcall TFormFrmKom::FormDestroy(TObject *Sender)
     exit(0);
 }
 //---------------------------------------------------------------------------
-void __fastcall TFormFrmKom::Button1Click(TObject *Sender)//деинициализация
+void __fastcall TFormFrmKom::Button123Click(TObject *Sender)//деинициализация
 {
     COMNumber=NodeId->Value;
     MotorNum=MotorNumEdit->Value;
@@ -132,7 +132,7 @@ void __fastcall TFormFrmKom::Button1Click(TObject *Sender)//деинициализация
         }
 }
 //---------------------------------------------------------------------------
-void __fastcall TFormFrmKom::ComboBox1Change(TObject *Sender)//настройка скорости передачи
+void __fastcall TFormFrmKom::fsdChange(TObject *Sender)//настройка скорости передачи
 {
     ComboBox1->ItemIndex == 5 ;
 
@@ -150,14 +150,14 @@ void __fastcall TFormFrmKom::ComboBox1Change(TObject *Sender)//настройка скорост
 //---------------------------------------------------------------------------
 
 
-void __fastcall TFormFrmKom::Button8Click(TObject *Sender)//сброс ошибок привода
+void __fastcall TFormFrmKom::Button8534Click(TObject *Sender)//сброс ошибок привода
 {
   MotorNum=MotorNumEdit->Value;
   MotorEposNumClearFaults(MotorNum);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormFrmKom::Button9Click(TObject *Sender)//базирование 
+void __fastcall TFormFrmKom::Button95435Click(TObject *Sender)//базирование
 {
     MotorNum=MotorNumEdit->Value;
     if(MotorEposNumBase(MotorNum, m_uMode)==0)
@@ -166,7 +166,7 @@ void __fastcall TFormFrmKom::Button9Click(TObject *Sender)//базирование
 //---------------------------------------------------------------------------
 
 
-void __fastcall TFormFrmKom::Button10Click(TObject *Sender)//чтение параметров базирования
+void __fastcall TFormFrmKom::Button10123Click(TObject *Sender)//чтение параметров базирования
 {
     MotorNum=MotorNumEdit->Value;
     double Uskor;
@@ -185,7 +185,7 @@ void __fastcall TFormFrmKom::Button10Click(TObject *Sender)//чтение параметров б
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormFrmKom::Button12Click(TObject *Sender)//запись параметров базирования
+void __fastcall TFormFrmKom::Button12123Click(TObject *Sender)//запись параметров базирования
 {
     MotorNum=MotorNumEdit->Value;
     double Uskor=TiSpEdBU->Value;
@@ -197,7 +197,7 @@ void __fastcall TFormFrmKom::Button12Click(TObject *Sender)//запись параметров б
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormFrmKom::Button11Click(TObject *Sender)//чтение параметров движения
+void __fastcall TFormFrmKom::Button11123Click(TObject *Sender)//чтение параметров движения
 {
     MotorNum=MotorNumEdit->Value;
     double Uskor;
@@ -213,7 +213,7 @@ void __fastcall TFormFrmKom::Button11Click(TObject *Sender)//чтение параметров д
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormFrmKom::Button13Click(TObject *Sender)//запись параметров движения
+void __fastcall TFormFrmKom::Button13123Click(TObject *Sender)//запись параметров движения
 {
     MotorNum=MotorNumEdit->Value;
     double Uskor=TiSpEdU->Value;
@@ -225,7 +225,7 @@ void __fastcall TFormFrmKom::Button13Click(TObject *Sender)//запись параметров д
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormFrmKom::ComboBox2Change(TObject *Sender)//настройка метода базирования
+void __fastcall TFormFrmKom::sdfChange(TObject *Sender)//настройка метода базирования
 {
     ComboBox2->ItemIndex == 0 ;
 
@@ -252,7 +252,7 @@ void __fastcall TFormFrmKom::ComboBox2Change(TObject *Sender)//настройка метода 
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormFrmKom::Button14Click(TObject *Sender)//относительное перемещение
+void __fastcall TFormFrmKom::Button147654Click(TObject *Sender)//относительное перемещение
 {
     double DistMove=TTiSpEdPosition->Value;
     MotorNum=MotorNumEdit->Value;
@@ -261,7 +261,7 @@ void __fastcall TFormFrmKom::Button14Click(TObject *Sender)//относительное перем
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormFrmKom::Button15Click(TObject *Sender)//остановка движения привода
+void __fastcall TFormFrmKom::Button15321Click(TObject *Sender)//остановка движения привода
 {
   MotorNum=MotorNumEdit->Value;
   if(MotorEposNumStop(MotorNum)==0)
@@ -269,7 +269,7 @@ void __fastcall TFormFrmKom::Button15Click(TObject *Sender)//остановка движения 
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormFrmKom::Button16Click(TObject *Sender)//абсолютное перемещение 
+void __fastcall TFormFrmKom::Button1623Click(TObject *Sender)//абсолютное перемещение
 {
     double DistMove=TTiSpEdPosition->Value;
     MotorNum=MotorNumEdit->Value;
@@ -278,7 +278,7 @@ void __fastcall TFormFrmKom::Button16Click(TObject *Sender)//абсолютное перемеще
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormFrmKom::Button17Click(TObject *Sender)//проверка сбазирован ли привод
+void __fastcall TFormFrmKom::Button1712Click(TObject *Sender)//проверка сбазирован ли привод
 {
     MotorNum=MotorNumEdit->Value;
     if(MotorEposNumStatBase( MotorNum)==0)
@@ -288,14 +288,14 @@ void __fastcall TFormFrmKom::Button17Click(TObject *Sender)//проверка сбазирован
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormFrmKom::GroupParDvClick(TObject *Sender)
+void __fastcall TFormFrmKom::fdsClick(TObject *Sender)
 {
    if(RadioButton3->Checked)Key=0;
     else if (RadioButton4->Checked) Key=1;
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormFrmKom::Button18Click(TObject *Sender)//чтение заданной координаты
+void __fastcall TFormFrmKom::Button18123Click(TObject *Sender)//чтение заданной координаты
 {
     MotorNum=MotorNumEdit->Value;
     if(MotorEposNumReadZdnCoord(MotorNum, &ZdnPos)==0)
@@ -314,7 +314,7 @@ void __fastcall TFormFrmKom::Button19Click(TObject *Sender)//чтение мин и макс к
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormFrmKom::Button20Click(TObject *Sender)//сканирование привода
+void __fastcall TFormFrmKom::Button20123Click(TObject *Sender)//сканирование привода
 {
     ZdnPos=TTiSpEdPosition->Value;
     double DistMove=TTiSpEdPosition->Value;
@@ -323,7 +323,7 @@ void __fastcall TFormFrmKom::Button20Click(TObject *Sender)//сканирование привод
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormFrmKom::Button21Click(TObject *Sender)//чтение состояния привода
+void __fastcall TFormFrmKom::gds2123Click(TObject *Sender)//чтение состояния привода
 {
     MotorNum=MotorNumEdit->Value;
     int State=0;
@@ -351,7 +351,7 @@ void __fastcall TFormFrmKom::Button21Click(TObject *Sender)//чтение состояния пр
 //---------------------------------------------------------------------------
 
 
-void __fastcall TFormFrmKom::Button22Click(TObject *Sender) //чтение датчиков
+void __fastcall TFormFrmKom::Button2212Click(TObject *Sender) //чтение датчиков
 {
     MotorNum=MotorNumEdit->Value;
     int Sens=0;
@@ -369,7 +369,7 @@ void __fastcall TFormFrmKom::Button22Click(TObject *Sender) //чтение датчиков
 
 
 
-void __fastcall TFormFrmKom::Button23Click(TObject *Sender)
+void __fastcall TFormFrmKom::Button23213Click(TObject *Sender)
 {
     MotorNum =MotorNumEdit->Value;
     double Pos;
@@ -377,4 +377,7 @@ void __fastcall TFormFrmKom::Button23Click(TObject *Sender)
         TiSpinEdit4->Value=Pos;
 }
 //---------------------------------------------------------------------------
+
+
+
 

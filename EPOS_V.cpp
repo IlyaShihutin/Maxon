@@ -430,7 +430,6 @@ int MotorEposNumClearFaults(int MotorNum)
 {
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
-    if(MotorEposCheckStateController(n)!=0) return (-1);
     if(!VCS_ClearFault(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &Result))
         {
             MotorEposCheckResult(MotorNum, Result);
