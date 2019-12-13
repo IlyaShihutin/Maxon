@@ -394,13 +394,14 @@ int MotorEposNumReadTekCoord(int MotorNum, double *TekPos)
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
     if(MotorEposCheckStateController(n)!=0) return (-1);
     long pPositionIs;
+    DWORD pNbOfBytesRead;
 
-    if(!VCS_GetPositionIs(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pPositionIs, &Result))
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x6062, 0x00, &pPositionIs, 4,&pNbOfBytesRead, &Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
         }
-    MotorEposRaschMoveCoordPar(MotorNum, (double)pPositionIs, TekPos,  'U',  1);
+    MotorEposRaschMoveCoordPar(MotorNum, (double)pPositionIs, TekPos,  'K',  1);
     return (MotorEposCheckResult(MotorNum,Result));
 }
 //----------------------------------------------------------------------------
@@ -411,13 +412,15 @@ int MotorEposNumReadZdnCoord(int MotorNum, double *ZdnPos)
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
     if(MotorEposCheckStateController(n)!=0) return (-1);
-    long pTargetPosition ;
-    if(!VCS_GetTargetPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pTargetPosition, &Result))
+    long pPositionIs ;
+
+    if(!VCS_GetPositionIs(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &pPositionIs, &Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
         }
-    MotorEposRaschMoveCoordPar(MotorNum, (double)pTargetPosition, ZdnPos,  'U',  1);
+
+    MotorEposRaschMoveCoordPar(MotorNum, (double)pPositionIs, ZdnPos,  'K',  1);
     return (MotorEposCheckResult(MotorNum,Result));
 }
 //----------------------------------------------------------------------------
@@ -427,7 +430,6 @@ int MotorEposNumClearFaults(int MotorNum)
 {
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
-    if(MotorEposCheckStateController(n)!=0) return (-1);
     if(!VCS_ClearFault(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, &Result))
         {
             MotorEposCheckResult(MotorNum, Result);
@@ -547,19 +549,21 @@ int MotorEposNumWriteParBase(int MotorNum, double SpeedSwitch, double SpeedIndex
     unsigned short CurrentThreshold=0;
 
     MotorEposRaschMoveCoordPar(MotorNum, Uskor, &Par2,  'U',  0);
-    pHomingAcceleration=(DWORD)Par2;
+    pHomingAcceleration=(DWORD)(Par2+0.5);
 
     MotorEposRaschMoveCoordPar(MotorNum, SpeedSwitch, &Par2,  'V',  0);
-    pSpeedSwitch=(DWORD)Par2;
+    pSpeedSwitch=(DWORD)(Par2+0.5);
 
     MotorEposRaschMoveCoordPar(MotorNum, SpeedIndex, &Par2,  'V',  0);
-    pSpeedIndex=(DWORD)Par2;
+    pSpeedIndex=(DWORD)(Par2+0.5);
+
 
     MotorEposRaschMoveCoordPar(MotorNum, Offset, &Par2,  'S',  0);
-    pHomeOffset=(long)Par2;
+    pHomeOffset=(long)(Par2+0.5);
 
     MotorEposRaschMoveCoordPar(MotorNum, HPosition, &Par2,  'S',  0);
-    HomePosition=(long)Par2;
+    if (Par2>=0)HomePosition=(long)(Par2+0.5);
+    else HomePosition=(long)(Par2-0.5);
 
     if(!VCS_SetHomingParameter(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, pHomingAcceleration,  pSpeedSwitch, pSpeedIndex,
                                 pHomeOffset,  CurrentThreshold,  HomePosition, &Result))
@@ -588,13 +592,13 @@ int MotorEposNumWriteParMove(int MotorNum, double Speed,double Uskor, double Tor
     double Par2;
 
     MotorEposRaschMoveCoordPar(MotorNum, Uskor, &Par2,  'U',  0);
-    ProfileAcceleration=(DWORD)Par2;
+    ProfileAcceleration=(DWORD)(Par2+0.5);
 
-    MotorEposRaschMoveCoordPar(MotorNum, Torm, &Par2, 'U',  '0');
-    ProfileDeceleration=(DWORD)Par2;
+    MotorEposRaschMoveCoordPar(MotorNum, Torm, &Par2, 'U',  0);
+    ProfileDeceleration=(DWORD)(Par2+0.5);
 
     MotorEposRaschMoveCoordPar(MotorNum, Speed, &Par2,  'V',  0);
-    ProfileVelocity=(DWORD)Par2;
+    ProfileVelocity=(DWORD)(Par2+0.5);
 
     if(!VCS_SetPositionProfile(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,ProfileVelocity,ProfileAcceleration,ProfileDeceleration, &Result))
         {
@@ -637,10 +641,11 @@ int MotorEposNumRelMove(int MotorNum, double DistMove, int Key)
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
     if(MotorEposCheckStateController(n)!=0) return (-1);
-    double ZdnPos;double NewPos;
+    double NewPos;
     bool m_oImmediately=TRUE;
     long TargetPosition;
     double Par2;
+    double ZdnPos;
     if (Key==1) m_oImmediately=FALSE;
 
     if (MotorEposNumWaitEndMove(MotorNum)==(-1)) return (-1);
@@ -662,14 +667,13 @@ int MotorEposNumRelMove(int MotorNum, double DistMove, int Key)
         MotorEposDgnPerMex(MotorNum,Min, Max, NewPos, &KeyErr);
     if(KeyErr!=0) return (-1);
     MotorEposRaschMoveCoordPar(MotorNum, NewPos, &Par2,  'O',  0);
-    TargetPosition=(long)Par2;
-
+    if (Par2>=0)TargetPosition=(long)(Par2+0.5);
+    else TargetPosition=(long)(Par2-0.5);
     if(!VCS_MoveToPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,TargetPosition,TRUE,m_oImmediately,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
         }
-
     if (MotorEposNumWaitEndMove(MotorNum)==(-1)) return (-1);
 
     return MotorEposCheckResult(MotorNum, Result);
@@ -684,6 +688,8 @@ int MotorEposNumAbsMove(int MotorNum, double DistMove, int Key)
     if(MotorEposCheckStateController(n)!=0) return (-1);
     int KeyErr=0;
     bool m_oImmediately=TRUE;
+    long TargetPosition;
+    double Par2;
 
     if (Key==1) m_oImmediately=FALSE;
 
@@ -701,8 +707,11 @@ int MotorEposNumAbsMove(int MotorNum, double DistMove, int Key)
         MotorEposDgnPerMex(MotorNum,Min, Max, DistMove, &KeyErr);
     if(KeyErr!=0) return (-1);
 
+    MotorEposRaschMoveCoordPar(MotorNum, DistMove, &Par2,  'O',  0);
+    if (Par2>=0)TargetPosition=(long)(Par2+0.5);
+    else TargetPosition=(long)(Par2-0.5);
 
-    if(!VCS_MoveToPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,DistMove,TRUE,m_oImmediately,&Result))
+    if(!VCS_MoveToPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,TargetPosition,TRUE,m_oImmediately,&Result))
         {
             MotorEposCheckResult(MotorNum, Result);
             return (-1);
@@ -747,7 +756,6 @@ int MotorEposNumSkanMove(int MotorNum, double DistMove)
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
     if(MotorEposCheckStateController(n)!=0) return (-1);
-    double ZdnPos;
     bool m_oImmediately=FALSE;
     long TargetPosition;
     double Par2;
@@ -770,7 +778,8 @@ int MotorEposNumSkanMove(int MotorNum, double DistMove)
     if(KeyErr!=0) return (-1);
 
     MotorEposRaschMoveCoordPar(MotorNum, NewPos, &Par2,  'O',  0);
-    TargetPosition=(long)Par2;
+    if (Par2>=0)TargetPosition=(long)(Par2+0.5);
+    else TargetPosition=(long)(Par2-0.5);
 
     if(!VCS_MoveToPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,TargetPosition,TRUE,m_oImmediately,&Result))
         {
@@ -780,7 +789,8 @@ int MotorEposNumSkanMove(int MotorNum, double DistMove)
     if (MotorEposNumWaitEndMove(MotorNum)==(-1)) return (-1);
 
     MotorEposRaschMoveCoordPar(MotorNum, ZdnPos, &Par2,  'O',  0);
-    TargetPosition=(long)Par2;
+    if (Par2>=0)TargetPosition=(long)(Par2+0.5);
+    else TargetPosition=(long)(Par2-0.5);
 
     if(!VCS_MoveToPosition(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr,TargetPosition,TRUE,m_oImmediately,&Result))
         {
@@ -1183,35 +1193,37 @@ int MotorEposRaschMoveCoordPar(int MotorNum, double Par1,double *Par2, char Key 
 {
     int n=0;
     if (MotorEposCheckStruct(MotorNum,&n)==-1) return(-1);
-
-   const double PI  =3.141592653589793238463;
-   double koff=1;
+    double koff=1.;
+    const double red=84.;//коэффициент редуктора
+    const double inc=2048.;//коэффициент двигателя 512 и коэффициент энкодера 4
+    const double min=60.;//коэффициент для перевода из минут в секунды;
+    const double grad=360.;//360 градусов
     if (Type==0)
        {
        switch(Key)
           {
-          case 'O': break;
-          case 'A': break;
-          case 'K': break;
-          case 'V': break;
-          case 'U': break;
-          case 'R': break;
-          case 'S': break;
+          case 'O':
+          case 'A':
+          case 'S':
+          case 'K': koff=(inc*red)/grad; break;
+          case 'V':
+          case 'U':
+          case 'R': koff=red*min; break;
           }
        }
     else {
        switch(Key)
           {
-          case 'O': break;
-          case 'A': break;
-          case 'K': break;
-          case 'V': break;
-          case 'U': break;
-          case 'R': break;
-          case 'S': break;
+          case 'O':
+          case 'A':
+          case 'S':
+          case 'K': koff=grad/(inc*red); break;
+          case 'V':
+          case 'U':
+          case 'R': koff=1./(red*min); break;
           }
        }
-    *Par2 =Par1;
+    *Par2 =koff*Par1;
     return 0;
 }
 
