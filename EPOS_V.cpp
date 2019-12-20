@@ -313,7 +313,119 @@ int MotorEposNumInit(int MotorNum)
                 }
 
         }
+    WORD pPositionIs1;
+    DWORD pNbOfBytesRead;
 
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x2002, 0x00, &pPositionIs1, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        WORD pPositionIs2;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x2005, 0x00, &pPositionIs2, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        WORD pPositionIs3;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x2001, 0x00, &pPositionIs3, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        WORD pPositionIs4;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x200A, 0x00, &pPositionIs4, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        WORD pPositionIs5;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x100C, 0x00, &pPositionIs5, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        WORD pPositionIs6;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x100D, 0x00, &pPositionIs6, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs7;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1016, 0x02, &pPositionIs7, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs8;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1016, 0x01, &pPositionIs8, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        WORD pPositionIs9;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1017, 0x00, &pPositionIs9, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs11;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1018, 0x01, &pPositionIs11, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs12;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1018, 0x02, &pPositionIs12, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs13;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1018, 0x03, &pPositionIs13, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs14;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1018, 0x04, &pPositionIs14, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        BYTE pPositionIs15;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x2000, 0x00, &pPositionIs15, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs16;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1014, 0x00, &pPositionIs16, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs17;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1005, 0x00, &pPositionIs17, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
     return (MotorEposCheckResult(MotorNum,Result));
 }
 //----------------------------------------------------------------------------
@@ -383,6 +495,163 @@ int MotorEposNumEnable(int MotorNum)
             }
         }
     else{MotorEposDiagnController(TxtDgnContr01); return (-1);}
+
+    DWORD pPositionIs1;
+    DWORD pNbOfBytesRead;
+
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1400, 0x01, &pPositionIs1, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs2;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1401, 0x01, &pPositionIs2, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1401, 0x02, &pPositionIs2, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs3;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1800, 0x01, &pPositionIs3, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1800, 0x02, &pPositionIs3, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1800, 0x03, &pPositionIs3, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+    /*WORD pPositionIs1;
+    DWORD pNbOfBytesRead;
+
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x2002, 0x00, &pPositionIs1, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        WORD pPositionIs2;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x2005, 0x00, &pPositionIs2, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        WORD pPositionIs3;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x2001, 0x00, &pPositionIs3, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        WORD pPositionIs4;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x200A, 0x00, &pPositionIs4, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        WORD pPositionIs5;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x100C, 0x00, &pPositionIs5, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        WORD pPositionIs6;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x100D, 0x00, &pPositionIs6, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs7;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1016, 0x02, &pPositionIs7, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs8;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1016, 0x01, &pPositionIs8, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        WORD pPositionIs9;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1017, 0x00, &pPositionIs9, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs11;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1018, 0x01, &pPositionIs11, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs12;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1018, 0x02, &pPositionIs12, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs13;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1018, 0x03, &pPositionIs13, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs14;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1018, 0x04, &pPositionIs14, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        BYTE pPositionIs15;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x2000, 0x00, &pPositionIs15, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs16;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1014, 0x00, &pPositionIs16, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+        DWORD pPositionIs17;
+        if(!VCS_GetObject(DvigMex[n].Handle, (WORD)DvigMex[n].NumContr, 0x1005, 0x00, &pPositionIs17, 4,&pNbOfBytesRead, &Result))
+        {
+            MotorEposCheckResult(MotorNum, Result);
+            return (-1);
+        }
+
+       */
     return 0;
 }
 //----------------------------------------------------------------------------
